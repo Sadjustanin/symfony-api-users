@@ -4,7 +4,7 @@ Simple symfony application for basic user management.
 
 ## Usage
 
-To get started, make sure you have [PHP](https://www.php.net/downloads) and [Composer](https://getcomposer.org/download/) installed on your system, and then clone this repository.
+To get started, make sure you have [PHP](https://www.php.net/downloads), [Composer](https://getcomposer.org/download/) and [PostgreSQL](https://www.postgresql.org/download/) installed on your system, and then clone this repository.
 
 Next navigate in your terminal to the directory you cloned this, run migrations to create table by running `composer i && php bin/console doctrine:migrations:migrate` and run local web server by running `symfony server:start`.
 
