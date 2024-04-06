@@ -5,19 +5,16 @@ namespace App\Service;
 use App\Entity\Users;
 use App\Exception\DuplicateException;
 use App\Exception\UserNotFoundException;
-use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityRepository;
 
 class UserService
 {
-
     private readonly EntityRepository $userRepository;
 
     public function __construct(
         private readonly EntityManagerInterface $entityManager
-    )
-    {
+    ) {
         $this->userRepository = $this->entityManager->getRepository(Users::class);
     }
 
@@ -25,12 +22,12 @@ class UserService
      * @throws DuplicateException
      * @throws \Exception
      */
-    public function register(string   $email,
-                             string   $name,
-                             string   $age,
-                             string   $sex,
-                             \DateTime $birthday,
-                             string   $phone): void
+    public function register(string $email,
+        string $name,
+        string $age,
+        string $sex,
+        \DateTime $birthday,
+        string $phone): void
     {
         if (null !== $this->userRepository->findOneBy(['email' => $email])) {
             throw new DuplicateException();
@@ -39,7 +36,7 @@ class UserService
         $user = (new Users())
             ->setEmail($email)
             ->setName($name)
-            ->setAge($age)
+            ->setAge((int) $age)
             ->setSex($sex)
             ->setBirthday($birthday)
             ->setPhone($phone);
@@ -53,6 +50,9 @@ class UserService
      */
     public function getUser(string $email): Users
     {
+        /**
+         * @var Users|null $user
+         */
         $user = $this->userRepository->findOneBy(['email' => $email]);
         if (null === $user) {
             throw new UserNotFoundException();
@@ -67,13 +67,15 @@ class UserService
      */
     public function editUserEmail(string $emailOld, string $emailNew): void
     {
+        /**
+         * @var Users|null $user
+         */
         $user = $this->userRepository->findOneBy(['email' => $emailOld]);
         if (null === $user) {
             throw new UserNotFoundException();
         }
 
-        if (null !== $this->userRepository->findOneBy(['email' => $emailNew]))
-        {
+        if (null !== $this->userRepository->findOneBy(['email' => $emailNew])) {
             throw new DuplicateException();
         }
 

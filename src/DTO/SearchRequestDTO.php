@@ -20,6 +20,7 @@ final class SearchRequestDTO implements DTOResolverInterface
     public function setEmail(string $email): SearchRequestDTO
     {
         $this->email = $email;
+
         return $this;
     }
 }

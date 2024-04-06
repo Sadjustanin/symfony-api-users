@@ -24,6 +24,7 @@ final class ChangeEmailRequestDTO implements DTOResolverInterface
     public function setEmailOld(string $email): ChangeEmailRequestDTO
     {
         $this->emailOld = $email;
+
         return $this;
     }
 
@@ -35,6 +36,7 @@ final class ChangeEmailRequestDTO implements DTOResolverInterface
     public function setEmailNew(string $email): ChangeEmailRequestDTO
     {
         $this->emailNew = $email;
+
         return $this;
     }
 }

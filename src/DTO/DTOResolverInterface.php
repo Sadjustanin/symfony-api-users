@@ -3,4 +3,5 @@
 namespace App\DTO;
 
 interface DTOResolverInterface
-{}
+{
+}

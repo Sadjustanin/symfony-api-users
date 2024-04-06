@@ -20,6 +20,7 @@ final class DeleteRequestDTO implements DTOResolverInterface
     public function setEmail(string $email): DeleteRequestDTO
     {
         $this->email = $email;
+
         return $this;
     }
 }

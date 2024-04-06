@@ -44,13 +44,13 @@ final class RegistrationRequestDTO implements DTOResolverInterface
     )]
     public function isSexValid(): bool
     {
-        return $this->sex === 'm' ||
-            $this->sex === 'M' ||
-            $this->sex === 'f' ||
-            $this->sex === 'F';
+        return 'm' === $this->sex
+            || 'M' === $this->sex
+            || 'f' === $this->sex
+            || 'F' === $this->sex;
     }
 
-    #[Assert\isTrue(
+    #[Assert\IsTrue(
         message: 'The birthday value is not the correct format.'
     )]
     public function isBirthdayFormatValid(): bool
@@ -58,9 +58,12 @@ final class RegistrationRequestDTO implements DTOResolverInterface
         $is_0 = true;
 
         try {
-            $this->birthday->format('Y-m-d');
+            if ($this->birthday != $this->birthday->format('Y-m-d')) {
+                return false;
+            }
+
             $yearSymbols = $this->birthday->format('Y');
-            $yearSymbols == 4 ?: throw new \Exception();
+            4 == $yearSymbols ?: throw new \Exception();
         } catch (\Exception) {
             $is_0 = false;
         }
@@ -68,13 +71,13 @@ final class RegistrationRequestDTO implements DTOResolverInterface
         return $is_0;
     }
 
-    #[Assert\isTrue(
+    #[Assert\IsTrue(
         message: 'Birthday can only be in the range of: 1870-01-01 - 2018-01-01'
     )]
     public function isBirthdayRangeValid(): bool
     {
-        return $this->birthday >= new \DateTime('1870-01-01') &&
-            $this->birthday <= new \DateTime('2018-01-01');
+        return $this->birthday >= new \DateTime('1870-01-01')
+            && $this->birthday <= new \DateTime('2018-01-01');
     }
 
     public function getEmail(): string
@@ -85,6 +88,7 @@ final class RegistrationRequestDTO implements DTOResolverInterface
     public function setEmail(string $email): RegistrationRequestDTO
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -96,6 +100,7 @@ final class RegistrationRequestDTO implements DTOResolverInterface
     public function setName(string $name): RegistrationRequestDTO
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -107,6 +112,7 @@ final class RegistrationRequestDTO implements DTOResolverInterface
     public function setAge(int $age): RegistrationRequestDTO
     {
         $this->age = $age;
+
         return $this;
     }
 
@@ -118,6 +124,7 @@ final class RegistrationRequestDTO implements DTOResolverInterface
     public function setSex(string $sex): RegistrationRequestDTO
     {
         $this->sex = $sex;
+
         return $this;
     }
 
@@ -129,6 +136,7 @@ final class RegistrationRequestDTO implements DTOResolverInterface
     public function setBirthday(\DateTime $birthday): RegistrationRequestDTO
     {
         $this->birthday = $birthday;
+
         return $this;
     }
 
@@ -140,6 +148,7 @@ final class RegistrationRequestDTO implements DTOResolverInterface
     public function setPhone(string $phone): RegistrationRequestDTO
     {
         $this->phone = $phone;
+
         return $this;
     }
 }

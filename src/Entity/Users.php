@@ -11,7 +11,6 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 #[ORM\HasLifecycleCallbacks]
 class Users
 {
-
     #[ORM\Id]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
@@ -62,6 +61,7 @@ class Users
     public function setId(string $id): Users
     {
         $this->id = $id;
+
         return $this;
     }
 
@@ -73,6 +73,7 @@ class Users
     public function setEmail(string $email): Users
     {
         $this->email = $email;
+
         return $this;
     }
 
@@ -84,6 +85,7 @@ class Users
     public function setName(string $name): Users
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -95,6 +97,7 @@ class Users
     public function setAge(int $age): Users
     {
         $this->age = $age;
+
         return $this;
     }
 
@@ -106,6 +109,7 @@ class Users
     public function setSex(string $sex): Users
     {
         $this->sex = $sex;
+
         return $this;
     }
 
@@ -117,6 +121,7 @@ class Users
     public function setBirthday(\DateTime $birthday): Users
     {
         $this->birthday = $birthday;
+
         return $this;
     }
 
@@ -128,6 +133,7 @@ class Users
     public function setPhone(string $phone): Users
     {
         $this->phone = $phone;
+
         return $this;
     }
 
@@ -139,6 +145,7 @@ class Users
     public function setCreatedAt(?\DateTimeInterface $createdAt): Users
     {
         $this->createdAt = $createdAt;
+
         return $this;
     }
 
@@ -150,21 +157,30 @@ class Users
     public function setUpdatedAt(?\DateTimeInterface $updatedAt): Users
     {
         $this->updatedAt = $updatedAt;
+
         return $this;
     }
 
     public function __toString(): string
     {
-        return "id: " . $this->id . PHP_EOL .
-            "email: " . $this->email . PHP_EOL .
-            "name: " . $this->name . PHP_EOL .
-            "age: " . $this->age . PHP_EOL .
-            "sex: " . $this->sex . PHP_EOL .
-            "birthday: " . $this->birthday->format('Y-m-d') . PHP_EOL .
-            "phone: " . $this->phone . PHP_EOL .
-            "created_at: " . $this->createdAt->format('Y-m-d H:i:s.u') . PHP_EOL .
-            "updated_at: " . $this->updatedAt->format('Y-m-d H:i:s.u') . PHP_EOL;
+        /**
+         * @var \DateTimeInterface $createdAt
+         */
+        $createdAt = $this->createdAt;
+
+        /**
+         * @var \DateTimeInterface $updatedAt
+         */
+        $updatedAt = $this->updatedAt;
+
+        return 'id: '.$this->id.PHP_EOL.
+            'email: '.$this->email.PHP_EOL.
+            'name: '.$this->name.PHP_EOL.
+            'age: '.$this->age.PHP_EOL.
+            'sex: '.$this->sex.PHP_EOL.
+            'birthday: '.$this->birthday->format('Y-m-d').PHP_EOL.
+            'phone: '.$this->phone.PHP_EOL.
+            'created_at: '.$createdAt->format('Y-m-d H:i:s.u').PHP_EOL.
+            'updated_at: '.$updatedAt->format('Y-m-d H:i:s.u').PHP_EOL;
     }
-
-
 }

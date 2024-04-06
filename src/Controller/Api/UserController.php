@@ -18,8 +18,8 @@ class UserController extends AbstractController
 {
     public function __construct(
         private readonly UserService $userService
-    )
-    {}
+    ) {
+    }
 
     /**
      * @throws DuplicateException
@@ -30,7 +30,7 @@ class UserController extends AbstractController
         $this->userService->register(
             $requestDTO->getEmail(),
             $requestDTO->getName(),
-            $requestDTO->getAge(),
+            (string) $requestDTO->getAge(),
             $requestDTO->getSex(),
             $requestDTO->getBirthday(),
             $requestDTO->getPhone()
